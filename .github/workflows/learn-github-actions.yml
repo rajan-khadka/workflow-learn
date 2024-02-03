@@ -9,19 +9,6 @@ jobs:
       - name: My First step - checkout repo
         uses: actions/checkout@v2
 
-      # - name: Setup nodejs
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "18"
-
-      # - name: Install deps
-      #   run: npm i
-
-      # - name: Check the .env
-      #   run: npm run start
-      #   env:
-      #     PORT: 3000
-
       - shell: bash
         run: |
           expr 1 + 1 > output.log
