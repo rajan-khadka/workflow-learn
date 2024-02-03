@@ -2,6 +2,15 @@ name: learn-github-actions
 run-name: ${{ github.actor }} is testing github
 on:
   push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "${{ github.workflow}} @ ${{ github.head_ref }} || ${{ github.ref}}"
+  cancel-in-progress: true
 
 jobs:
   dump_contexts_to_log:
@@ -15,6 +24,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+
+      - name: install dependencies
+        run: npm ci
 
       - name: Dump GitHub context
         env:
