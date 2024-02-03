@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -20,26 +21,5 @@ jobs:
       matrix:
         node-version: ["16.x", "18.x"]
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: setup nodejs
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version}}
-
-      - name: install dependencies
-        run: npm ci
-
       - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
-      - name: Group Name
-        env:
-          WORK: ${{ github.workflow}}
-          HEAD_REF: ${{ github.head_ref}}
-          REF: ${{ github.ref}}
-        run: |
-          echo " $WORK , $HEAD_REF , $REF"
+        run: echo "${{ toJson(github) }}"
