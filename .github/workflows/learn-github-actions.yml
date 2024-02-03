@@ -3,31 +3,7 @@ on: [push]
 
 jobs:
   check-bats-version:
+    if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
-      - name: My First step - checkout repo
-        uses: actions/checkout@v2
-
-      - shell: bash
-        run: |
-          expr 1 + 1 > output.log
-
-      - name: Upload output files
-        uses: actions/upload-artifact@v2
-        with:
-          name: output-log-file
-          path: output.log
-
-  download-artifacts: # Fix typo in job name
-    name: download-artifacts # Fix typo in job name
-    needs: check-bats-version
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download output files
-        uses: actions/download-artifact@v4
-        with:
-          name: output-log-file
-
-      - shell: bash
-        run: |
-          cat output.log
+      - run: echo "Deploying to production server on branch $GITHUB_REF"
