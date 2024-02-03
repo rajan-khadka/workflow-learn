@@ -32,3 +32,11 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+
+      - name: Group Name
+        env:
+          WORK: ${{ github.workflow}}
+          HEAD_REF: ${{ github.head_ref}}
+          REF: ${{ github.ref}}
+        run: |
+          echo " $WORK , $HEAD_REF , $REF"
