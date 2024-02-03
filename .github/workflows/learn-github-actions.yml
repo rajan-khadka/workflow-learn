@@ -1,5 +1,4 @@
 name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 
 jobs:
@@ -19,8 +18,8 @@ jobs:
           name: output-log-file
           path: output.log
 
-  download-artificates:
-    name: download-artificate
+  download-artifacts: # Fix typo in job name
+    name: download-artifacts # Fix typo in job name
     needs: check-bats-version
     runs-on: ubuntu-latest
     steps:
