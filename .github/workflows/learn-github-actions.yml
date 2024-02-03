@@ -1,10 +1,7 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is testing github
 on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+  issues:
 
 permissions:
   contents: read
