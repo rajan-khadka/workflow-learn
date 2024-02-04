@@ -12,8 +12,28 @@ concurrency:
 
 jobs:
   dump_contexts_to_log:
-    name: custom name
+    name: serve react app
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        run: echo "${{ toJson(github) }}"
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: build react app
+        run: npm run build
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: |
+            dist
+            package.json
