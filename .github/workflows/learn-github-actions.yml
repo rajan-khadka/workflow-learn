@@ -14,6 +14,8 @@ jobs:
   build-react-app:
     name: serve react app
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.publish.outputs.script-file }}
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
@@ -35,6 +37,11 @@ jobs:
 
       - name: build react app
         run: npm run build
+
+      - name: Publish JS fileName
+        id: publish
+        # run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+        run: find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
 
       - name: upload artifact
         uses: actions/upload-artifact@v4
@@ -76,3 +83,6 @@ jobs:
       - name: Output artifacts
         run: |
           ls -lh
+
+      - name: output filename
+        run: echo "${{ needs.build-react-app.outputs.script-file }}"
