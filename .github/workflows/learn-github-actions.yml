@@ -48,4 +48,4 @@ jobs:
 
       - name: Output artifacts
         run: |
-          ls -l
+          ls -lh
