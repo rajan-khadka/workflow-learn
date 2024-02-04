@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  dump_contexts_to_log:
+  build-react-app:
     name: serve react app
     runs-on: ubuntu-latest
     steps:
@@ -35,3 +35,17 @@ jobs:
         with:
           name: dist-files
           path: dist
+
+  download-artifact:
+    name: download artifact
+    needs: build-react-app
+    runs-on: ubuntu-latest
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+
+      - name: Output artifacts
+        run: |
+          ls -lh
