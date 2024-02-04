@@ -43,6 +43,18 @@ jobs:
     needs: build-react-app
     runs-on: ubuntu-latest
     steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: install dependencies
+        run: npm ci
+
       - name: download artifact
         uses: actions/download-artifact@v4
         with:
