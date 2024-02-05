@@ -11,88 +11,87 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-react-app:
-    name: serve react app
-    runs-on: ubuntu-latest
-    outputs:
-      script-file: ${{ steps.publish.outputs.script-file }}
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
+  # build-react-app:
+  #   name: serve react app
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     script-file: ${{ steps.publish.outputs.script-file }}
+  #   steps:
+  #     - name: checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Cache Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+  #     - name: Cache Dependencies
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.npm
+  #         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: setup nodejs
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: npm
+  #     - name: setup nodejs
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 18
+  #         cache: npm
 
-      - name: install dependencies
-        run: npm ci
+  #     - name: install dependencies
+  #       run: npm ci
 
-      - name: build react app
-        id: build-step
-        continue-on-error: true
-        run: npm run build
+  #     - name: build react app
+  #       id: build-step
+  #       continue-on-error: true
+  #       run: npm run build
 
-      - name: Publish JS fileName
-        id: publish
+  #     - name: Publish JS fileName
+  #       id: publish
 
-        # if: failure() && steps.build-step.outcome == 'failure'
-        # run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
-        run: find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
+  #       # if: failure() && steps.build-step.outcome == 'failure'
+  #       # run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+  #       run: find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
 
-      - name: upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-files
-          path: |
-            dist
-            package.json
+  #     - name: upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: dist-files
+  #         path: |
+  #           dist
+  #           package.json
 
-  download-artifact:
-    name: download artifact
-    needs: build-react-app
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
+  # download-artifact:
+  # name: download artifact
+  # needs: build-react-app
+  # runs-on: ubuntu-latest
+  # steps:
+  #   - name: checkout repository
+  #     uses: actions/checkout@v4
 
-      - name: Cache Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+  #   - name: Cache Dependencies
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: ~/.npm
+  #       key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: setup nodejs
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: npm
+  #   - name: setup nodejs
+  #     uses: actions/setup-node@v4
+  #     with:
+  #       node-version: 18
+  #       cache: npm
 
-      - name: install dependencies
-        run: npm ci
+  #   - name: install dependencies
+  #     run: npm ci
 
-      - name: download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-files
-          path: dist
+  #   - name: download artifact
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: dist-files
+  #       path: dist
 
-      - name: Output artifacts
-        run: |
-          ls -lh
+  #   - name: Output artifacts
+  #     run: |
+  #       ls -lh
 
-      - name: output filename
-        run: echo "${{ needs.build-react-app.outputs.script-file }}"
-
+  #   - name: output filename
+  #     run: echo "${{ needs.build-react-app.outputs.script-file }}"
   report:
-    needs: [build-react-app]
+    # needs: [build-react-app]
     runs-on: ubuntu-latest
     steps:
       - name: Outpurt Information
