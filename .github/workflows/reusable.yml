@@ -1,0 +1,13 @@
+name: Resuable Workflow
+run-name: Resuable Workflow cicd
+
+on: workflow_call
+
+jobs:
+  deploy:
+    name: "resaubale workgloe"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Resuable Workflow"
+        run: echo "successfully used"
