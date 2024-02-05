@@ -92,10 +92,8 @@ jobs:
         run: echo "${{ needs.build-react-app.outputs.script-file }}"
 
   report:
-    if: failure()
     needs: [build-react-app]
     runs-on: ubuntu-latest
     steps:
       - name: Outpurt Information
-        run: |
-          echo "Something failed"
+        uses: ./.github/workflows/resuable.yml
