@@ -41,7 +41,7 @@ jobs:
 
       - name: Publish JS fileName
         id: publish
-        if: failure() && steps.build-step.outcome == 'failure'
+        # if: failure() && steps.build-step.outcome == 'failure'
         # run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
         run: find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
 
@@ -88,3 +88,12 @@ jobs:
 
       - name: output filename
         run: echo "${{ needs.build-react-app.outputs.script-file }}"
+
+  report:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Outpurt Information
+        run: |
+          echo "Something failed"
+          echo ${{ github }}
