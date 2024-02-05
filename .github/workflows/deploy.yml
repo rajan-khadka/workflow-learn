@@ -34,3 +34,15 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v4
+
+      - name: Run Custom Action
+        uses: ./.github/actions/deploy-s3-js
+
+      - name: Deploy
+        run: echo "Deploying ..."

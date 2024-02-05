@@ -1,0 +1,6 @@
+name: "Deploy to AWS S3"
+description: "Deploy a stactioc web service"
+
+runs:
+  using: 'node16'
+  main: 'main.js'
