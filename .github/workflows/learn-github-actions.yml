@@ -92,7 +92,7 @@ jobs:
   #     run: echo "${{ needs.build-react-app.outputs.script-file }}"
   report:
     # needs: [build-react-app]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Outpurt Information
-        uses: ./.github/workflows/reusable.yml
+    # runs-on: ubuntu-latest
+    # steps:
+    name: Outpurt Information
+    uses: ./.github/workflows/reusable.yml
