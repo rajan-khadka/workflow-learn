@@ -41,7 +41,7 @@ jobs:
 
       - name: Publish JS fileName
         id: publish
-        if: steps.build-step.outcome == 'failure'
+        if: failure() && steps.build-step.outcome == 'failure'
         # run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
         run: find dist/assets/*.js -type f -execdir echo '::set-output name=script-file::{}' ';'
 
