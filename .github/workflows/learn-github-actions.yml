@@ -1,7 +1,7 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is testing github
 on:
-  push:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -55,6 +55,7 @@ jobs:
     name: download artifact
     needs: build-react-app
     runs-on: ubuntu-latest
+
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
