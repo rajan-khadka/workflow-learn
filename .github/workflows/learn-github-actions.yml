@@ -91,10 +91,9 @@ jobs:
 
   report:
     if: failure()
-    needs: [build-react-app, download-artifact]
+    needs: [build-react-app]
     runs-on: ubuntu-latest
     steps:
       - name: Outpurt Information
         run: |
           echo "Something failed"
-          echo ${{ github }}
