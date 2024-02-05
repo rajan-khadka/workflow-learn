@@ -91,6 +91,7 @@ jobs:
 
   report:
     if: failure()
+    needs: [build-react-app, download-artifact]
     runs-on: ubuntu-latest
     steps:
       - name: Outpurt Information
