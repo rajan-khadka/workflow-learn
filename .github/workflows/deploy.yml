@@ -2,7 +2,7 @@ name: Composite-Action
 run-name: Composite Action
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   lint:
